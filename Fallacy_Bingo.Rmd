@@ -4,22 +4,30 @@ Logical Fallacy BINGO-- $20 CASH PRIZE!
 
 ```{r, results='asis', echo=FALSE}
 #Requires packages knitr and xtable!
-library(xtable)
+library(gridExtra)
 library(knitr)
 
-fallacy.vector <- sort(c("Ad hominem", "Appeal to inappropriate authority", "Strawman", "Guilt by association", "Factual error", "Equivocation", "False dilemma", "Correlation implies causation", "Loaded question", "Bandwagon", "Begging the question", "'Proof' by anecdote", "Cherry-picking data", "The fallacy fallacy", "Argument from ignorance", "Ambiguous language", "Middle ground", "Appeal to consequences", "Arguement from incredulity", "Confirmation bias", "Gambler's fallacy", "Inflation of conflict", "Irrelevant conclusion", "Moral high ground", "Moving the goalposts", "Perfect solution fallacy", "Onus probandi", "Proof by assertion", "Red herring", "Shotgun argumentation", "Hasty generalization", "Appeal to emotion", "Argument from silence", "Genetic fallacy", "Reductio ad Hitlerum", "Slippery slope"))
+fallacy.vector <- sort(c("Ad hominem", "Appeal to \ninappropriate\n authority", "Strawman", "Guilt by \nassociation", "Factual\n error", "Equivocation", "False \n dilemma", "Correlation \nimplies causation", "Loaded \nquestion", "Bandwagon", "Begging the\n question", "'Proof' by \nanecdote", "Cherry-picking\n data", "The fallacy\n fallacy", "Argument from \nignorance", "Ambiguous \nlanguage", "Middle\n ground", "Appeal to \nconsequences", "Arguement from \nincredulity", "Confirmation \nbias", "Gambler's \nfallacy", "Inflation of \nconflict", "Irrelevant \nconclusion", "Moral \n high ground", "Moving the\n goalposts", "Perfect solution\n fallacy", "Onus \nprobandi", "Proof by \nassertion", "Red herring", "Shotgun \nargumentation", "Hasty \ngeneralization", "Appeal to \nemotion", "Argument \nfrom silence", "Genetic \nfallacy", "Reductio ad \nHitlerum", "Slippery\n slope"))
 names <- list(1:5, c("B","I","N","G","O"))
 Bingo.vector <- sample(fallacy.vector, 24, replace=FALSE)
 Bingo.vector2 <- c(Bingo.vector[1:12], "FREE SPACE", Bingo.vector[13:24])
 Bingo.matrix <- matrix(data=Bingo.vector2, nrow=5, ncol=5, dimnames=names)
-Bingo.table <- xtable(Bingo.matrix)
+Bingo.table <- as.table(Bingo.matrix)
 
-align(Bingo.table) <- "|ccccc{5cm}|c|"
+#plot(NULL)
 
-print(Bingo.table, type='html', floating=FALSE)
-
-
-#knitr::kable(Bingo.matrix, row.names=TRUE, align='c',)
+grid.table(Bingo.table, 
+           gpar.corefill = gpar(fill = "white", alpha = .5, col = NA),
+           gpar.colfill = gpar(fill = "white"),
+           gpar.rowfill = gpar(fill = "white"),
+           separator = "black",
+           show.box = "TRUE",                   
+           show.vlines = TRUE, show.hlines = TRUE, 
+           show.namesep = TRUE, show.csep = TRUE, 
+           show.rsep=TRUE,
+           equal.width = TRUE, equal.height = TRUE, 
+           padding.v = unit(1.8, "cm"))
 ```
+
 
 
