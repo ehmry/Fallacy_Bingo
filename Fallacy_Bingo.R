@@ -1,4 +1,6 @@
 require(gridExtra)
+require(gridBase)
+require(ggplot2)
 
 title <- "Logical Fallacy BINGO"
 
@@ -43,10 +45,12 @@ fallacy.vector <- sort(c(
 
 nSquares <- 24;
 
-pdf(file="bingo.pdf", onefile=TRUE, title=title)
+mkCard <- function(x, y) {
+       pushViewport(viewport(layout.pos.col=x,
+                             layout.pos.row=y))
+       pushViewport(viewport(width=0.9, height=0.9))
 
-for(i in 1:20)
-{
+
         indexes <- sample(1:length(fallacy.vector), nSquares, replace=FALSE)
 
         ##
@@ -60,18 +64,51 @@ for(i in 1:20)
         Bingo.matrix <- matrix(data=Bingo.vector2, nrow=5, ncol=5, dimnames=names)
         Bingo.table <- as.table(Bingo.matrix)
 
-        plot.new()
         grid.table(Bingo.table, 
-                   gpar.corefill = gpar(fill = "white", alpha = .5, col = NA),
+                   gpar.corefill = gpar(fill = "white", col = NA),
                    gpar.colfill = gpar(fill = "white"),
                    gpar.rowfill = gpar(fill = "white"),
+                   gpar.coretext =  gpar(col = "black", cex = 0.3),
                    separator = "black",
                    show.box = "TRUE",                   
                    show.vlines = TRUE, show.hlines = TRUE, 
                    show.namesep = TRUE, show.csep = TRUE, 
                    show.rsep=TRUE,
-                   equal.width = TRUE, equal.height = TRUE, 
-                   padding.v = unit(1.8, "cm") )
+                   padding.v = unit(.6, "cm"),
+                   padding.h = unit(.4, "cm"))
+
+        popViewport()
+        popViewport()
+}
+
+pdf(file="bingo.pdf", onefile=TRUE, title=title)
+
+
+     # Demonstrate viewport clipping
+     clip.demo <- function(i, j, clip1, clip2) {
+       pushViewport(viewport(layout.pos.col=i,
+                              layout.pos.row=j))
+       pushViewport(viewport(width=0.6, height=0.6))
+       grid.rect(gp=gpar(fill="white"))
+       popViewport()
+       popViewport()
+     }
+
+
+for(i in 1:3)
+{
+        grid.newpage()
+        #grid.rect(gp=gpar(fill="grey"))
+        pushViewport(viewport(layout=grid.layout(3, 2)))
+
+        mkCard(1, 1)
+        mkCard(1, 2)
+        mkCard(1, 3)
+        mkCard(2, 1)
+        mkCard(2, 2)
+        mkCard(2, 3)
+
+        popViewport()
 }
 
 dev.off()
