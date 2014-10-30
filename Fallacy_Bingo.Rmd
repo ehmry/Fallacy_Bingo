@@ -1,0 +1,25 @@
+Logical Fallacy BINGO-- $20 CASH PRIZE!
+========================================================
+
+
+```{r, results='asis', echo=FALSE}
+#Requires packages knitr and xtable!
+library(xtable)
+library(knitr)
+
+fallacy.vector <- sort(c("Ad hominem", "Appeal to inappropriate authority", "Strawman", "Guilt by association", "Factual error", "Equivocation", "False dilemma", "Correlation implies causation", "Loaded question", "Bandwagon", "Begging the question", "'Proof' by anecdote", "Cherry-picking data", "The fallacy fallacy", "Argument from ignorance", "Ambiguous language", "Middle ground", "Appeal to consequences", "Arguement from incredulity", "Confirmation bias", "Gambler's fallacy", "Inflation of conflict", "Irrelevant conclusion", "Moral high ground", "Moving the goalposts", "Perfect solution fallacy", "Onus probandi", "Proof by assertion", "Red herring", "Shotgun argumentation", "Hasty generalization", "Appeal to emotion", "Argument from silence", "Genetic fallacy", "Reductio ad Hitlerum", "Slippery slope"))
+names <- list(1:5, c("B","I","N","G","O"))
+Bingo.vector <- sample(fallacy.vector, 24, replace=FALSE)
+Bingo.vector2 <- c(Bingo.vector[1:12], "FREE SPACE", Bingo.vector[13:24])
+Bingo.matrix <- matrix(data=Bingo.vector2, nrow=5, ncol=5, dimnames=names)
+Bingo.table <- xtable(Bingo.matrix)
+
+align(Bingo.table) <- "|ccccc{5cm}|c|"
+
+print(Bingo.table, type='html', floating=FALSE)
+
+
+#knitr::kable(Bingo.matrix, row.names=TRUE, align='c',)
+```
+
+
