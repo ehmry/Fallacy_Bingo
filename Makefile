@@ -1,2 +1,2 @@
-bingo.pdf: Fallacy_Bingo.R
-	R --no-restore -f Fallacy_Bingo.R
+bingo.pdf: Fallacy_Bingo.R pdf.R
+	R --no-restore -f pdf.R
